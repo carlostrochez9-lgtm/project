@@ -98,28 +98,33 @@ ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE shift_requests ENABLE ROW LEVEL SECURITY;
 
 -- Profiles policies
+DROP POLICY IF EXISTS "Users can view own profile" ON profiles;
 CREATE POLICY "Users can view own profile"
   ON profiles FOR SELECT
   TO authenticated
   USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Users can update own profile" ON profiles;
 CREATE POLICY "Users can update own profile"
   ON profiles FOR UPDATE
   TO authenticated
   USING (auth.uid() = id)
   WITH CHECK (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Users can insert own profile" ON profiles;
 CREATE POLICY "Users can insert own profile"
   ON profiles FOR INSERT
   TO authenticated
   WITH CHECK (auth.uid() = id);
 
 -- Events policies
+DROP POLICY IF EXISTS "Authenticated users can view all events" ON events;
 CREATE POLICY "Authenticated users can view all events"
   ON events FOR SELECT
   TO authenticated
   USING (true);
 
+DROP POLICY IF EXISTS "Admins can create events" ON events;
 CREATE POLICY "Admins can create events"
   ON events FOR INSERT
   TO authenticated
@@ -131,6 +136,7 @@ CREATE POLICY "Admins can create events"
     )
   );
 
+DROP POLICY IF EXISTS "Admins can update their events" ON events;
 CREATE POLICY "Admins can update their events"
   ON events FOR UPDATE
   TO authenticated
@@ -149,6 +155,7 @@ CREATE POLICY "Admins can update their events"
     )
   );
 
+DROP POLICY IF EXISTS "Admins can delete their events" ON events;
 CREATE POLICY "Admins can delete their events"
   ON events FOR DELETE
   TO authenticated
@@ -161,16 +168,19 @@ CREATE POLICY "Admins can delete their events"
   );
 
 -- Shift requests policies
+DROP POLICY IF EXISTS "Staff can view their own shift requests" ON shift_requests;
 CREATE POLICY "Staff can view their own shift requests"
   ON shift_requests FOR SELECT
   TO authenticated
   USING (staff_id = auth.uid());
 
+DROP POLICY IF EXISTS "Staff can create shift requests" ON shift_requests;
 CREATE POLICY "Staff can create shift requests"
   ON shift_requests FOR INSERT
   TO authenticated
   WITH CHECK (staff_id = auth.uid());
 
+DROP POLICY IF EXISTS "Admins can view all shift requests" ON shift_requests;
 CREATE POLICY "Admins can view all shift requests"
   ON shift_requests FOR SELECT
   TO authenticated
@@ -182,6 +192,7 @@ CREATE POLICY "Admins can view all shift requests"
     )
   );
 
+DROP POLICY IF EXISTS "Admins can update shift request status" ON shift_requests;
 CREATE POLICY "Admins can update shift request status"
   ON shift_requests FOR UPDATE
   TO authenticated

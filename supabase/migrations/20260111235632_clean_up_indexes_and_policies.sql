@@ -57,6 +57,9 @@ DROP POLICY IF EXISTS "Users can view own profile" ON profiles;
 DROP POLICY IF EXISTS "Admins can view all profiles" ON profiles;
 
 -- Create single consolidated SELECT policy
+-- Ensure consolidated policy is removed before creating to allow idempotent runs
+DROP POLICY IF EXISTS "Users can view profiles" ON profiles;
+
 CREATE POLICY "Users can view profiles"
   ON profiles FOR SELECT
   TO authenticated
@@ -80,6 +83,9 @@ DROP POLICY IF EXISTS "Users can update own profile" ON profiles;
 DROP POLICY IF EXISTS "Admins can update user validation" ON profiles;
 
 -- Create single consolidated UPDATE policy
+-- Ensure consolidated update policy is removed before creating to allow idempotent runs
+DROP POLICY IF EXISTS "Users can update profiles" ON profiles;
+
 CREATE POLICY "Users can update profiles"
   ON profiles FOR UPDATE
   TO authenticated
@@ -113,6 +119,9 @@ DROP POLICY IF EXISTS "Staff can view their own shift requests" ON shift_request
 DROP POLICY IF EXISTS "Admins can view all shift requests" ON shift_requests;
 
 -- Create single consolidated SELECT policy
+-- Ensure consolidated shift-requests select policy is removed before creating
+DROP POLICY IF EXISTS "Users can view shift requests" ON shift_requests;
+
 CREATE POLICY "Users can view shift requests"
   ON shift_requests FOR SELECT
   TO authenticated
@@ -136,6 +145,9 @@ DROP POLICY IF EXISTS "Admins can update shift request status" ON shift_requests
 DROP POLICY IF EXISTS "Admins can update shift signatures" ON shift_requests;
 
 -- Create single consolidated UPDATE policy for admins
+-- Ensure consolidated admins update policy is removed before creating
+DROP POLICY IF EXISTS "Admins can update shift requests" ON shift_requests;
+
 CREATE POLICY "Admins can update shift requests"
   ON shift_requests FOR UPDATE
   TO authenticated

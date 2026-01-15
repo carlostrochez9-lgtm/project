@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Calendar, Users, CheckCircle, X } from 'lucide-react';
+import { Users, CheckCircle, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { StaffRole } from '../lib/database.types';

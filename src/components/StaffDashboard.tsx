@@ -65,11 +65,11 @@ export function StaffDashboard() {
       if (requestsError) throw requestsError;
 
       const requestsMap = new Map(
-        requestsData?.map((r) => [r.event_id, r.status]) || []
+        (requestsData?.map((r: any) => [r.event_id, r.status]) || []) as Array<[string,string]>
       );
 
       const eventsWithCapacity = await Promise.all(
-        (eventsData || []).map(async (event) => {
+        (eventsData || []).map(async (event: any) => {
           const { count } = await supabase
             .from('shift_requests')
             .select('*', { count: 'exact', head: true })
@@ -117,13 +117,13 @@ export function StaffDashboard() {
       if (error) throw error;
 
       const confirmedEvents: EventWithRequest[] = (data || [])
-        .filter((sr) => sr.events)
-        .map((sr) => ({
+        .filter((sr: any) => sr.events)
+        .map((sr: any) => ({
           ...(sr.events as unknown as Event),
           hasRequested: true,
           requestStatus: 'confirmed' as const,
         }))
-        .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
+        .sort((a: any, b: any) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime());
 
       setMySchedule(confirmedEvents);
     } catch (error) {

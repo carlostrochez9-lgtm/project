@@ -163,7 +163,8 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE INDEX IF NOT EXISTS idx_shift_requests_staff_status ON shift_requests(staff_id, status);
 
 -- Create view for available events with capacity info
-CREATE OR REPLACE VIEW available_events_with_capacity AS
+DROP VIEW IF EXISTS available_events_with_capacity CASCADE;
+CREATE VIEW available_events_with_capacity AS
 SELECT 
   e.*,
   COALESCE(

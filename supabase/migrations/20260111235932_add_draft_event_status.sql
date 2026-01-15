@@ -59,6 +59,9 @@ DROP POLICY IF EXISTS "Staff can view events" ON events;
 DROP POLICY IF EXISTS "Authenticated users can view events" ON events;
 
 -- Create new SELECT policy that shows published events to staff, all events to admins
+-- Ensure consolidated view policy is removed before creating to allow idempotent runs
+DROP POLICY IF EXISTS "Users can view events based on role and status" ON events;
+
 CREATE POLICY "Users can view events based on role and status"
   ON events FOR SELECT
   TO authenticated

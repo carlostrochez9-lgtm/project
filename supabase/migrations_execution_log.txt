@@ -1,0 +1,72 @@
+Migration run started: 2026-01-15T05:38:51.047Z
+
+==== RUNNING supabase\local_auth_stub.sql ====
+
+-- OK: supabase\local_auth_stub.sql
+
+==== RUNNING supabase\migrations\20260111183626_create_luxury_staffing_schema.sql ====
+
+-- OK: supabase\migrations\20260111183626_create_luxury_staffing_schema.sql
+
+==== RUNNING supabase\migrations\20260111190202_add_roles_and_approval_workflow.sql ====
+
+-- OK: supabase\migrations\20260111190202_add_roles_and_approval_workflow.sql
+
+==== RUNNING supabase\migrations\20260111234638_add_validation_and_signing_features_v2.sql ====
+
+-- OK: supabase\migrations\20260111234638_add_validation_and_signing_features_v2.sql
+
+==== RUNNING supabase\migrations\20260111235428_fix_security_and_performance_issues.sql ====
+
+-- OK: supabase\migrations\20260111235428_fix_security_and_performance_issues.sql
+
+==== RUNNING supabase\migrations\20260111235632_clean_up_indexes_and_policies.sql ====
+
+-- OK: supabase\migrations\20260111235632_clean_up_indexes_and_policies.sql
+
+==== RUNNING supabase\migrations\20260111235932_add_draft_event_status.sql ====
+
+-- OK: supabase\migrations\20260111235932_add_draft_event_status.sql
+
+==== RUNNING supabase\migrations\20260112001348_fix_security_issues.sql ====
+
+-- OK: supabase\migrations\20260112001348_fix_security_issues.sql
+
+==== RUNNING supabase\migrations\20260112001602_remove_duplicate_index.sql ====
+
+-- OK: supabase\migrations\20260112001602_remove_duplicate_index.sql
+
+==== RUNNING supabase\migrations\20260112003328_add_luxury_level_to_events.sql ====
+
+-- OK: supabase\migrations\20260112003328_add_luxury_level_to_events.sql
+
+==== RUNNING supabase\migrations\20260112003453_add_reporting_views_and_functions.sql ====
+
+-- OK: supabase\migrations\20260112003453_add_reporting_views_and_functions.sql
+
+==== RUNNING supabase\migrations\20260112010230_fix_infinite_recursion_in_profiles_policies_v2.sql ====
+
+-- OK: supabase\migrations\20260112010230_fix_infinite_recursion_in_profiles_policies_v2.sql
+
+==== RUNNING supabase\migrations\20260112010242_add_automatic_profile_creation.sql ====
+
+-- OK: supabase\migrations\20260112010242_add_automatic_profile_creation.sql
+
+==== RUNNING supabase\migrations\20260112030418_add_staff_position_levels.sql ====
+
+-- OK: supabase\migrations\20260112030418_add_staff_position_levels.sql
+
+==== RUNNING supabase\migrations\20260112030907_add_position_level_targeting_to_events.sql ====
+
+-- OK: supabase\migrations\20260112030907_add_position_level_targeting_to_events.sql
+
+==== RUNNING supabase\migrations\20260114120000_add_organizations_and_org_id.sql ====
+
+-- OK: supabase\migrations\20260114120000_add_organizations_and_org_id.sql
+
+==== RUNNING supabase\migrations\20260114121500_add_rls_policies_for_multi_tenancy.sql ====
+
+-- OK: supabase\migrations\20260114121500_add_rls_policies_for_multi_tenancy.sql
+
+Migration run finished successfully: 2026-01-15T05:38:51.313Z
+

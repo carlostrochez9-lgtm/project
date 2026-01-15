@@ -22,8 +22,7 @@ function App() {
   if (profile.role === 'staff' && !profile.is_validated) {
     return <PendingApproval />;
   }
-
-  if (profile.role === 'admin') {
+  if (profile.role === 'admin' || profile.role === 'super_admin') {
     return <AdminDashboard />;
   }
 

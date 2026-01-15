@@ -16,7 +16,8 @@ export interface Database {
           id: string;
           email: string;
           full_name: string | null;
-          role: 'admin' | 'staff';
+          role: 'super_admin' | 'admin' | 'staff';
+          org_id: string | null;
           staff_role: StaffRole | null;
           rating: number;
           status: 'active' | 'inactive';
@@ -27,7 +28,8 @@ export interface Database {
           id: string;
           email: string;
           full_name?: string | null;
-          role?: 'admin' | 'staff';
+          role?: 'super_admin' | 'admin' | 'staff';
+          org_id?: string | null;
           staff_role?: StaffRole | null;
           rating?: number;
           status?: 'active' | 'inactive';
@@ -38,7 +40,8 @@ export interface Database {
           id?: string;
           email?: string;
           full_name?: string | null;
-          role?: 'admin' | 'staff';
+          role?: 'super_admin' | 'admin' | 'staff';
+          org_id?: string | null;
           staff_role?: StaffRole | null;
           rating?: number;
           status?: 'active' | 'inactive';
@@ -61,6 +64,7 @@ export interface Database {
           uniform_requirements: string | null;
           description: string | null;
           created_by: string | null;
+          org_id: string | null;
           created_at: string;
         };
         Insert: {
@@ -77,6 +81,7 @@ export interface Database {
           uniform_requirements?: string | null;
           description?: string | null;
           created_by?: string | null;
+          org_id?: string | null;
           created_at?: string;
         };
         Update: {
@@ -93,6 +98,36 @@ export interface Database {
           uniform_requirements?: string | null;
           description?: string | null;
           created_by?: string | null;
+          org_id?: string | null;
+          created_at?: string;
+        };
+      };
+      organizations: {
+        Row: {
+          id: string;
+          org_id: string;
+          name: string;
+          logo_url: string | null;
+          primary_color: string | null;
+          billing_status: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          org_id: string;
+          name: string;
+          logo_url?: string | null;
+          primary_color?: string | null;
+          billing_status?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          org_id?: string;
+          name?: string;
+          logo_url?: string | null;
+          primary_color?: string | null;
+          billing_status?: string | null;
           created_at?: string;
         };
       };

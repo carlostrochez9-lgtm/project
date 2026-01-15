@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Calendar, MapPin, Shirt, Users, Clock, DollarSign, CheckCircle, XCircle, User, Eye, Send } from 'lucide-react';
+import { Plus, Calendar, MapPin, Shirt, Users, Clock, DollarSign, CheckCircle, XCircle, User, Eye, Send, Sparkles } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import type { StaffRole } from '../lib/database.types';
@@ -77,8 +77,8 @@ export function EventsManagement() {
       if (error) throw error;
 
       const allEvents = data || [];
-      setDraftEvents(allEvents.filter(e => e.status === 'draft'));
-      setEvents(allEvents.filter(e => e.status === 'published'));
+      setDraftEvents(allEvents.filter((e: any) => e.status === 'draft'));
+      setEvents(allEvents.filter((e: any) => e.status === 'published'));
     } catch (error) {
       console.error('Error loading events:', error);
     } finally {
@@ -586,7 +586,7 @@ Regards,
                     <div className="flex items-center space-x-2 mb-2">
                       <h3 className="text-xl font-serif text-white">{event.title}</h3>
                       {event.beo_source && (
-                        <Sparkles className="w-4 h-4 text-[#D4AF37]" title="Auto-extracted from BEO" />
+                        <Sparkles className="w-4 h-4 text-[#D4AF37]" aria-label="Auto-extracted from BEO" />
                       )}
                     </div>
                     <span className="inline-block px-3 py-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full text-xs text-yellow-400 font-medium tracking-wider">

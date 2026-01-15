@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Crown, Award, Users, Clock } from 'lucide-react';
 import { AuthModal } from './AuthModal';
+import { CreateOrganization } from './CreateOrganization';
 
 export function LandingPage() {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showOrgModal, setShowOrgModal] = useState(false);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0B1120] via-[#151B2E] to-[#0B1120]">
@@ -18,6 +20,12 @@ export function LandingPage() {
             className="btn-luxury px-8 py-3 rounded-lg shadow-lg transform hover:scale-105"
           >
             Staff Login
+          </button>
+          <button
+            onClick={() => setShowOrgModal(true)}
+            className="ml-3 btn-luxury-outline px-6 py-2 rounded-lg"
+          >
+            Create Organization
           </button>
         </div>
       </nav>
@@ -78,6 +86,7 @@ export function LandingPage() {
       </main>
 
       <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
+      {showOrgModal && <CreateOrganization onClose={() => setShowOrgModal(false)} />}
     </div>
   );
 }

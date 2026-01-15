@@ -7,7 +7,8 @@ interface Profile {
   id: string;
   email: string;
   full_name: string | null;
-  role: 'admin' | 'staff';
+  role: 'super_admin' | 'admin' | 'staff';
+  org_id: string | null;
   staff_role: StaffRole | null;
   rating: number;
   status: 'active' | 'inactive';
@@ -18,8 +19,9 @@ interface AuthContextType {
   user: User | null;
   profile: Profile | null;
   loading: boolean;
+  orgId: string | null;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, fullName: string, role: 'admin' | 'staff', staffRole?: StaffRole) => Promise<void>;
+  signUp: (email: string, password: string, fullName: string, role: 'admin' | 'staff' | 'super_admin', staffRole?: StaffRole, orgId?: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -28,10 +30,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [orgId, setOrgId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }: any) => {
       setUser(session?.user ?? null);
       if (session?.user) {
         loadProfile(session.user.id);
@@ -40,7 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
       (() => {
         setUser(session?.user ?? null);
         if (session?.user) {
@@ -65,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (error) throw error;
       setProfile(data);
+      setOrgId(data?.org_id ?? null);
     } catch (error) {
       console.error('Error loading profile:', error);
     } finally {
@@ -77,7 +81,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) throw error;
   };
 
-  const signUp = async (email: string, password: string, fullName: string, role: 'admin' | 'staff', staffRole?: StaffRole) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    fullName: string,
+    role: 'admin' | 'staff' | 'super_admin',
+    staffRole?: StaffRole,
+    orgId?: string
+  ) => {
     const { data, error } = await supabase.auth.signUp({ email, password });
     if (error) throw error;
 
@@ -87,6 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         email,
         full_name: fullName,
         role,
+        org_id: orgId ?? null,
         staff_role: role === 'staff' ? staffRole : null,
       });
       if (profileError) throw profileError;
@@ -99,7 +111,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signIn, signUp, signOut }}>
+    <AuthContext.Provider value={{ user, profile, loading, orgId, signIn, signUp, signOut }}>
       {children}
     </AuthContext.Provider>
   );

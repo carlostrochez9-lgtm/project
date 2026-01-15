@@ -26,7 +26,7 @@ export function UserManagement() {
     email: '',
     password: '',
     full_name: '',
-    staff_role: 'server' as StaffRole,
+    staff_role: 'Server' as StaffRole,
     position_level: 'on_call_2' as 'full_time' | 'on_call_1' | 'on_call_2'
   });
   const [addingEmployee, setAddingEmployee] = useState(false);
@@ -45,7 +45,7 @@ export function UserManagement() {
 
       if (error) throw error;
 
-      const pending = (data || []).filter(u => !u.is_validated && u.role === 'staff');
+      const pending = (data || []).filter((u: any) => !u.is_validated && u.role === 'staff');
       setPendingUsers(pending);
       setAllUsers(data || []);
     } catch (error) {
@@ -171,7 +171,7 @@ Best regards,
         email: '',
         password: '',
         full_name: '',
-        staff_role: 'server',
+        staff_role: 'Server',
         position_level: 'on_call_2'
       });
       loadUsers();
