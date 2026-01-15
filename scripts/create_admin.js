@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import { createClient } from '@supabase/supabase-js';
 
 // Support both environment variables and simple CLI args
-// CLI args supported: --url, --service-key, --email, --password, --name
+// CLI args supported: --url, --service-key, --email, --password, --name, --role
 const argv = process.argv.slice(2);
 function argVal(flag) {
   const idx = argv.indexOf(flag);
@@ -16,6 +16,7 @@ const SERVICE_ROLE_KEY = argVal('--service-key') || process.env.SUPABASE_SERVICE
 const ADMIN_EMAIL = argVal('--email') || process.env.ADMIN_EMAIL || 'admin@example.com';
 const ADMIN_PASSWORD = argVal('--password') || process.env.ADMIN_PASSWORD || 'Admin123!';
 const ADMIN_NAME = argVal('--name') || process.env.ADMIN_NAME || 'Site Admin';
+const ADMIN_ROLE = argVal('--role') || process.env.ADMIN_ROLE || 'admin';
 
 function exitWith(msg) {
   console.error(msg);
@@ -66,7 +67,7 @@ async function main() {
     const profile = {
       id: userId || undefined,
       full_name: ADMIN_NAME,
-      role: 'admin',
+      role: ADMIN_ROLE,
       email: ADMIN_EMAIL,
     };
 
@@ -92,6 +93,7 @@ async function main() {
     console.log('Email:', ADMIN_EMAIL);
     console.log('Password:', ADMIN_PASSWORD);
     console.log('Name:', ADMIN_NAME);
+    console.log('Role:', ADMIN_ROLE);
     console.log('\nIMPORTANT: This script uses the service role key. Keep it secret and remove the created test admin when finished.');
   } catch (err) {
     console.error('Unexpected error creating admin:', err);
